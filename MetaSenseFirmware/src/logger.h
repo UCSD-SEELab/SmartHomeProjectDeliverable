@@ -52,7 +52,7 @@ int freeRam();
 #define M_DEBUG(...) // M_LOGGER_TO_SERIAL(__VA_ARGS__)
 #define M_INFO(...) // M_LOGGER_TO_SERIAL(__VA_ARGS__)
 #define M_ERROR(...) // M_LOGGER_TO_SERIAL(__VA_ARGS__)
-#define M_MQTT_TRACE(...) Serial.printf(__VA_ARGS__);
+#define M_MQTT_TRACE(...) //Serial.printf(__VA_ARGS__);
 
 
 #define M_OUT_MSG  //Serial.print("-->"); msg.SerializeTo(Serial);
