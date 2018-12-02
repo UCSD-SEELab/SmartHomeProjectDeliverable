@@ -1,0 +1,37 @@
+{
+	"server": {
+		"host": "192.168.10.6",
+		"port": 61613,
+		"keepalive": 60,
+		"username": "admin",
+		"pwd": "SamsungProject",
+		"topics": ["smartthings/Contact 1/contact", "smartthings/Contact 2/contact", "smartthings/Drawer 1/contact", "smartthings/Drawer 2/contact", "smartthings/Fridge/contact"],
+		"clientID": "smartthingsHub",
+		"sensor": "smartthings",
+		"modelDir": "./model/",
+		"numInputs": 3,
+		"outputTopic": "smartthings_inference"
+	},
+	"test": {
+		"host": "test.mosquitto.org",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["smartthings/Contact 1/contact", "smartthings/Contact 2/contact", "smartthings/Drawer 1/contact", "smartthings/Drawer 2/contact", "smartthings/Fridge/contact"],
+		"clientID": "testing",
+		"sensor": "smartthings",
+		"modelDir": "./model/",
+		"numInputs": 3,
+		"outputTopic": "smartthings_inference"
+	},
+	"local": {
+		"host": "127.0.0.1",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["smartthings/Contact 1/contact", "smartthings/Contact 2/contact", "smartthings/Drawer 1/contact", "smartthings/Drawer 2/contact", "smartthings/Fridge/contact"],
+		"clientID": "testing",
+		"sensor": "smartthings",
+		"modelDir": "./model/",
+		"numInputs": 3,
+		"outputTopic": "smartthings_inference"
+	}
+}

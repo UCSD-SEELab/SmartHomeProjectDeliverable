@@ -1,0 +1,37 @@
+{
+	"server": {
+		"host": "192.168.10.6",
+		"port": 61613,
+		"keepalive": 60,
+		"username": "admin",
+		"pwd": "SamsungProject",
+		"topics": ["kitchen_inference", "livingroom_inference", "smartthings_inference", "watch/nnjson", "localization/nnjson"],
+		"clientID": "cloud",
+		"sensor": "cloud",
+		"numInputs": 4,
+		"outputTopic": "cloud_inference",
+		"modelDir": "./model/"
+	},
+	"test": {
+		"host": "test.mosquitto.org",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["kitchen_inference", "livingroom_inference", "smartthings_inference", "watch/nnjson", "localization/nnjson"],
+		"clientID": "testing",
+		"sensor": "cloud",
+		"numInputs": 4,
+		"outputTopic": "cloud_inference",
+		"modelDir": "./model/"
+	},
+	"local": {
+		"host": "127.0.0.1",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["kitchen_inference", "livingroom_inference", "smartthings_inference", "watch/nnjson", "localization/nnjson"],
+		"clientID": "testing",
+		"sensor": "cloud",
+		"numInputs": 4,
+		"outputTopic": "cloud_inference",
+		"modelDir": "./model/"
+	}
+}

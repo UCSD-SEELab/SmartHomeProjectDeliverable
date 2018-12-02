@@ -1,0 +1,8 @@
+2018-06-01 13:04:00  Prepping Food
+2018-06-01 13:09:30  Cooking  
+2018-06-01 13:28:50 Setting Table
+2018-06-01 13:36:00 Eating 
+2018-06-01 13:50:00 Clearing Table
+2018-06-01 14:02:44 Making Tea
+2018-06-01 14:20:00 Drinking Tea
+2018-06-01 14:25:00 Watching TV

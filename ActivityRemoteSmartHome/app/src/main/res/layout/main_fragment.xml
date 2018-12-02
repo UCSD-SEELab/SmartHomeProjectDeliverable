@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="edu.ucsd.seelab.HierarchicalLearning.ActivityRemote.ui.main.MainFragment" tools:layout_editor_absoluteY="81dp">
+
+    <android.support.constraint.ConstraintLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout">
+        <EditText
+                android:text="server"
+                android:ems="10" android:layout_margin="8dp"
+                android:id="@+id/editTextServerURI" android:inputType="textUri"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"/>
+        <android.support.constraint.Barrier android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                            android:id="@+id/barrier" app:barrierDirection="top"
+                                            app:layout_constraintBottom_toBottomOf="@+id/toggleButtonConnect"
+                                            tools:layout_editor_absoluteY="650dp"/>
+        <ToggleButton
+                android:text="ToggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/toggleButtonConnect"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_margin="8dp"
+                android:textOff="Disconnected" android:textOn="Connected" android:checked="false"/>
+    </android.support.constraint.ConstraintLayout>
+    <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout"
+            android:gravity="top"
+            android:orientation="horizontal" app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonPrepping"
+                    android:textOn="Prepping" android:textOff="Not Prepping"
+                    android:checked="false"
+                    android:layout_margin="8dp"/>
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonWalking"
+                    android:layout_margin="8dp" android:textOff="Not Walking" android:textOn="Walking"
+                    android:checked="false"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonCooking"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textOff="Not Cooking" android:textOn="Cooking" android:checked="false"
+                    android:layout_margin="8dp"/>
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonStanding"
+                    android:textOff="Not Standing" android:textOn="Standing" android:checked="false"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonSettingTable"
+                    android:checked="false" android:textOn="Setting Table" android:textOff="Not Setting Table"
+                    android:layout_margin="8dp"/>
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonSitting"
+                    android:layout_margin="8dp" android:textOff="Not Sitting" android:textOn="Sitting"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonEating"
+                    android:textOff="Not Eating" android:textOn="Eating" android:checked="false"
+                    android:layout_margin="8dp"/>
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonLayingDown"
+                    android:textOff="Not Laying Down" android:textOn="Laying Down" android:checked="false"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="Not Clearing Table" android:textOn="Clearing Table"
+                    android:id="@+id/toggleButtonClearingTable" android:checked="false"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonMakingTea"
+                    android:textOff="Not Making Tea" android:textOn="Making Tea" android:checked="false"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonDrinkingTea"
+                    android:textOff="Not Drinking Tea" android:textOn="Drinking Tea" android:checked="false"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ToggleButton
+                    android:text="ToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/toggleButtonWatchingTV"
+                    android:checked="false" android:textOff="Not Watching TV" android:textOn="Watching TV"
+                    android:layout_margin="8dp"/>
+        </TableRow>
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>

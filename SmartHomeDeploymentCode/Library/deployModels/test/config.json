@@ -1,0 +1,15 @@
+{
+	"sensor": "teapot_plug",
+	"modelDir": "../test/",
+	"local": {
+		"host": "192.168.2.38",
+		"port": 61613,
+		"keepalive": 60,
+		"topics": ["crk"],
+		"clientID": "testing",
+		"sensor": "teapot_plug",
+		"modelDir": "../test/",
+		"numInputs": 2,
+		"outputTopic": "test"
+	}
+}

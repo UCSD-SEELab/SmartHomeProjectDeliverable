@@ -1,0 +1,6 @@
+2018-05-14 14:04:33 Prepping Food
+2018-05-14 14:07:09 Cooking
+2018-05-14 14:11:12 Setting Table
+2018-05-14 14:13:00 Eating
+2018-05-14 14:14:00 Making Tea
+2018-05-14 14:20:09 Clearing Table

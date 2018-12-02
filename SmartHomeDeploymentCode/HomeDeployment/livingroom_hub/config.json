@@ -1,0 +1,37 @@
+{
+	"server": {
+		"host": "192.168.10.6",
+		"port": 61613,
+		"keepalive": 60,
+		"username": "admin",
+		"pwd": "SamsungProject",
+		"topics": ["tv_plug_inference"],
+		"clientID": "livingroomHub",
+		"sensor": "livingroom",
+		"modelDir": "./model/",
+		"numInputs": 2,
+		"outputTopic": "livingroom_inference"
+	},
+	"test": {
+		"host": "test.mosquitto.org",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["tv_plug_inference"],
+		"clientID": "testing",
+		"sensor": "livingroom",
+		"modelDir": "./model/",
+		"numInputs": 2,
+		"outputTopic": "livingroom_inference"
+	},
+	"local": {
+		"host": "127.0.0.1",
+		"port": 1883,
+		"keepalive": 60,
+		"topics": ["tv_plug_inference"],
+		"clientID": "testing",
+		"sensor": "livingroom",
+		"modelDir": "./model/",
+		"numInputs": 2,
+		"outputTopic": "livingroom_inference"
+	}
+}
