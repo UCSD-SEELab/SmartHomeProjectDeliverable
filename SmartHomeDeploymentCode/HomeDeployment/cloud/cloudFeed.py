@@ -41,26 +41,33 @@ import json
 from deployModels.HLdeployer.communicate import *
 
 def on_msg_kitchen(mosq, obj, msg):
+    print("kitchen")
     datum = json.loads(str(msg.payload))
     com.dataDict["kitchen_inference"] = datum["data"][0]
     print ("recieved kitchen", com.dataDict["MetaSense_inference"])
 
 def on_msg_livingroom(mosq, obj, msg):
+    print("livingroom")
     datum = json.loads(str(msg.payload))
     com.dataDict["livingroom_inference"] = datum["data"][0]
     print("recieved livingroom", com.dataDict["livingroom_inference"])
 
 def on_msg_smartthings(mosq, obj, msg):
+    print("smartthings")
     datum = json.loads(str(msg.payload))
     com.dataDict["smartthings_inference"] = datum["data"][0]
     print("recieved mat", com.dataDict["smartthings_inference"])
 
 def on_msg_watch(mosq, obj, msg):
+    print("watch")
+    print(str(msg.payload))
     datum = json.loads(str(msg.payload))
     com.dataDict["watch/nnjson"] = datum["data"][0]
     print("recieved watch", com.dataDict["watch/nnjson"])
 
 def on_msg_localization(mosq, obj, msg):
+    print("localization")
+    print(str(msg.payload))
     datum = json.loads(str(msg.payload))
     com.dataDict["localization_inference"] = datum["data"][0]
     print("recieved localization", com.dataDict["localization_inference"])
