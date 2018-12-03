@@ -1,6 +1,6 @@
 {
 	"server": {
-		"host": "192.168.10.6",
+		"host": "192.168.10.87",
 		"port": 61613,
 		"keepalive": 60,
 		"username": "admin",

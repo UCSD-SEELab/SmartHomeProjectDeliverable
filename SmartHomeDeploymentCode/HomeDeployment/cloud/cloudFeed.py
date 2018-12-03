@@ -66,7 +66,7 @@ def on_msg_localization(mosq, obj, msg):
     print("recieved localization", com.dataDict["localization_inference"])
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["test"]
+    conf = json.load(confFile)["server"]
 
 com = communicate(conf, [on_msg_kitchen, on_msg_livingroom, on_msg_smartthings, on_msg_watch, on_msg_localization])
 com.startListening()
