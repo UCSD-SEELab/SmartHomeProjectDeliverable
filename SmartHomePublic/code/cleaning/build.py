@@ -39,7 +39,6 @@ import tables
 import pywt
 sys.path.append('../')
 
-from tabulate import tabulate
 from preliminaries.preliminaries import *
 from scipy.stats import mode
 
