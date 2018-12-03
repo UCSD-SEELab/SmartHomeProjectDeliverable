@@ -37,20 +37,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import sys
 sys.path.append('../')
 
-import scipy.stats as stats
 from preliminaries.preliminaries import *
 
 if __name__=="__main__":   
-    with open("../../temp/sensors.txt") as fh:
-        sensors = eval(fh.read())
 
     clf = "DecisionTree"
     
-    yunhui_data = pd.read_hdf("../../temp/data_processed.h5", "yunhui")
-    anthony_data = pd.read_hdf("../../temp/data_processed.h5", "anthony")
+    subject2_data = pd.read_hdf("../../temp/data_processed.h5", "subject2")
+    subject1_data = pd.read_hdf("../../temp/data_processed.h5", "subject1")
 
-    train_data = anthony_data
-    test_data = yunhui_data
+    metasense_vars = filter(
+        lambda x: "metasense_pressure" in x, subject1_data.columns)
+    subject1_data = subject1_data.drop(metasense_vars, axis="columns")
+    subject2_data = subject2_data.drop(metasense_vars, axis="columns")
+
+    # drop the "cooking" category due to measurement error
+    subject2_data = subject2_data.loc[subject2_data["label"] != 1.0,:]
+    subject1_data = subject1_data.loc[subject1_data["label"] != 1.0,:]
+
+    train_data = subject1_data
+    test_data = subject2_data
 
     train_X  = train_data.drop(['label'], axis=1).values[:-300,:]
 
@@ -65,9 +71,7 @@ if __name__=="__main__":
         ['label'], axis=1).loc[validation_split == 1,:].values
     validation_y = test_data['label'][validation_split == 1].values
 
-    # count each label
-    log_dir = "../output/TreeModels/" + clf + "/"
-
+    log_dir = "../../output/TreeModels/" + clf + "/"
     try:
         os.makedirs(log_dir)
     except OSError as e:
@@ -80,7 +84,6 @@ if __name__=="__main__":
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-        f = log_dir + "/XGboost/results.json"
         model = XGBClassifier()
 
         model.fit(train_X, train_y)
@@ -96,7 +99,6 @@ if __name__=="__main__":
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-        f = log_dir + "/DecisionTree/results.json"
 
         for ms in min_samples_split:
             for mi in min_impurity_decrease:
@@ -105,4 +107,4 @@ if __name__=="__main__":
                 model.fit(train_X, train_y)
                 print "Train acc: {}".format(model.score(train_X, train_y)) 
                 print "Test acc: {}".format(model.score(test_X, test_y)) 
-                tree.export_graphviz(model, out_file='tree.dot')   
+ 
