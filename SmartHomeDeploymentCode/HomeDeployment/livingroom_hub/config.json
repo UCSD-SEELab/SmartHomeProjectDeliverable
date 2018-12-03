@@ -17,7 +17,7 @@
 		"port": 1883,
 		"keepalive": 60,
 		"topics": ["tv_plug_inference"],
-		"clientID": "testing",
+		"clientID": "livingroom",
 		"sensor": "livingroom",
 		"modelDir": "./model/",
 		"numInputs": 2,

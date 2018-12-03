@@ -1,6 +1,6 @@
 {
 	"server": {
-		"host": "192.168.10.6",
+		"host": "192.168.10.87",
 		"port": 61613,
 		"keepalive": 60,
 		"username": "admin",
@@ -17,7 +17,7 @@
 		"port": 1883,
 		"keepalive": 60,
 		"topics": ["smartthings/Contact 1/contact", "smartthings/Contact 2/contact", "smartthings/Drawer 1/contact", "smartthings/Drawer 2/contact", "smartthings/Fridge/contact"],
-		"clientID": "testing",
+		"clientID": "smartthings",
 		"sensor": "smartthings",
 		"modelDir": "./model/",
 		"numInputs": 3,

@@ -103,7 +103,7 @@ class communicate(loadModel):
 
             result = self.compute([feature_vec])[0]
             print (self.compute([feature_vec]))
-            self.sendData(self.outputTopic, "{data:" + str(result) +"}") 
+            self.sendData(self.outputTopic, '{"data":' + str(result) +'}') 
             time.sleep(3)
 
     def predictFromWeights(self, inputFeat):

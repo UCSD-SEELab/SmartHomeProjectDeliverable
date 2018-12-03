@@ -44,10 +44,10 @@ import numpy as np
 from deployModels.HLdeployer.communicate import *
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["test"]
+    conf = json.load(confFile)["server"]
 
 com = communicate(conf)
-plug = core.Core('192.168.1.8', 9999, False)
+plug = core.Core('192.168.10.85', 9999, False)
 plugBuf = [0.0] * 3
 counter = 0
 
@@ -57,7 +57,7 @@ while True:
     counter = (counter + 1) % 3
     feat1 = (np.mean(plugBuf) - 0.488167) / 1.723526
     feat2 = (np.var(plugBuf) - 0.220158) / 1.82480 
-    result = com.compute([[feat1, feat2]])[0]
-    com.sendData(conf["outputTopic"], "{data: " + str(result) + "}")
+    result = com.compute([[feat1, feat2]])[0][0]
+    com.sendData(conf["outputTopic"], '{"data": ' + str([[result[0], result[1]]]) +  '}')
     #print com.predictFromWeights([1,2])
     time.sleep(5)
