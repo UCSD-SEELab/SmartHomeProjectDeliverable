@@ -171,7 +171,7 @@ def on_msg_fridge(mosq, obj, msg):
 
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["server"]
+    conf = json.load(confFile)["test"]
 
 com = communicate(conf, [on_msg_cab1, on_msg_cab2, on_msg_draw1, on_msg_draw2, on_msg_fridge])
 com.startListening()

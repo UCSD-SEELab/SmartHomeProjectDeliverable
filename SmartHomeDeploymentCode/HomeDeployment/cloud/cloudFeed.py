@@ -44,7 +44,7 @@ def on_msg_kitchen(mosq, obj, msg):
     print("kitchen")
     datum = json.loads(str(msg.payload))
     com.dataDict["kitchen_inference"] = datum["data"][0]
-    print ("recieved kitchen", com.dataDict["MetaSense_inference"])
+    print ("recieved kitchen", com.dataDict["kitchen_inference"])
 
 def on_msg_livingroom(mosq, obj, msg):
     print("livingroom")
@@ -56,7 +56,7 @@ def on_msg_smartthings(mosq, obj, msg):
     print("smartthings")
     datum = json.loads(str(msg.payload))
     com.dataDict["smartthings_inference"] = datum["data"][0]
-    print("recieved mat", com.dataDict["smartthings_inference"])
+    print("recieved smartthings", com.dataDict["smartthings_inference"])
 
 def on_msg_watch(mosq, obj, msg):
     print("watch")
@@ -73,7 +73,7 @@ def on_msg_localization(mosq, obj, msg):
     print("recieved localization", com.dataDict["localization_inference"])
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["server"]
+    conf = json.load(confFile)["test"]
 
 com = communicate(conf, [on_msg_kitchen, on_msg_livingroom, on_msg_smartthings, on_msg_watch, on_msg_localization])
 com.startListening()

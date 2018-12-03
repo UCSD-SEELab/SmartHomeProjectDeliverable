@@ -56,7 +56,7 @@ def on_msg_mat(mosq, obj, msg):
     print("recieved mat", com.dataDict["pressuremat_inference"])
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["server"]
+    conf = json.load(confFile)["test"]
 
 com = communicate(conf, [on_msg_metasense, on_msg_mat, on_msg_plug])
 com.startListening()

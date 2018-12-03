@@ -17,7 +17,7 @@
 		"port": 1883,
 		"keepalive": 60,
 		"topics": ["MetaSense/nnjson", "pressuremat_inference", "teapot_plug_inference"],
-		"clientID": "testing",
+		"clientID": "kitchen",
 		"sensor": "kitchen",
 		"numInputs": 2,
 		"outputTopic": "kitchen_inference",

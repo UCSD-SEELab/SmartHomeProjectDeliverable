@@ -103,7 +103,8 @@ class communicate(loadModel):
 
             result = self.compute([feature_vec])[0]
             print (self.compute([feature_vec]))
-            self.sendData(self.outputTopic, '{"data":' + str(result) +'}') 
+            outData = [val for val in result[0]]
+            self.sendData(self.outputTopic, '{"data":' + str([outData]) +'}') 
             time.sleep(3)
 
     def predictFromWeights(self, inputFeat):
@@ -112,7 +113,7 @@ class communicate(loadModel):
         process = subprocess.Popen(callArr, stdout = subprocess.PIPE)
         result, err = process.communicate()
         print (result)
-        self.sendData(self.outputTopic, "{data:" + str(result) +"}") 
+        self.sendData(self.outputTopic, "{data:" + str([result]) +"}") 
         return json.loads(result)
 
 if __name__ == '__main__':

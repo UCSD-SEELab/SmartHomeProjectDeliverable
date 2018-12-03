@@ -44,7 +44,7 @@ import numpy as np
 from deployModels.HLdeployer.communicate import *
 
 with open("./config.json", 'r') as confFile:
-    conf = json.load(confFile)["server"]
+    conf = json.load(confFile)["test"]
 
 com = communicate(conf)
 plug = core.Core('192.168.10.85', 9999, False)
