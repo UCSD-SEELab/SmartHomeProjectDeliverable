@@ -37,7 +37,7 @@ cd SmartHomePublic/code/cleaning
 python run.py
 ```
 
-The output of this process will be an HDF5 file containing two Pandas data frames which can be used in analysis algorithms. The label of each observation is contained in the column `label`. For detailed examples of how to use these files inspect `/code/analysis/mlp.py`. For detailed documentation on Pandas see: [Pandas Tutorials](https://pandas.pydata.org/pandas-docs/stable/tutorials.html) A simple example is given below:
+The output of this process will be an HDF5 file containing two Pandas data frames which can be used in analysis algorithms. The label of each observation is contained in the column `label`. Two HDF5 files are produced. The first `/temp/data_processed.h5` contains extracted data with unscaled feature values. The second file `/temp/data_processed_centered.h5` contains extracted data where all continuous feature values have been rescaled to the mean and standard deviation of the data for `subject1`. In general, it is recommended that you rescale the training dataset such that all continuous columns have mean `0` and variance `1` prior to running any training algorithms. The test dataset must be similarly rescaled. For detailed examples of how to use these files inspect `/code/analysis/mlp.py`. For detailed documentation on Pandas see: [Pandas Tutorials](https://pandas.pydata.org/pandas-docs/stable/tutorials.html) A simple example is given below:
 
 ```
 import pandas as pd
@@ -49,7 +49,7 @@ In the following three sections we document in greater detail the steps performe
 
 ## Data Description
 
-**Note: we provide data parsing scripts. This section merely provides documentation for completeness**. We provide output from three rounds of data collection performed on three different days in the same location. Raw data files are contained in the `/data` directory. The files are named: `MQTT_Messages_subject<number>_<date>.txt`. Each row in a file corresponds to one reading from one sensor. An example row is described below:
+**Note: we provide data parsing scripts. This section merely provides documentation for completeness**. We provide output from three rounds of data collection performed on three different days in the same location. Raw data files are contained in the `/data` directory. The files are named: `MQTT_Messages_subject<number>_<date>.txt`. There are currently 4 test subjects in the data directory. Each row in a file corresponds to one reading from one sensor. An example row is described below:
 
 `Topic:#pir/angular_locations#Message:#{"posy": 19.0, "angle1": 45.0, "posx": 6.0, "angle2": 45.0}`
 
@@ -97,6 +97,14 @@ watch_data.join(metasense_data, how="left").fillna(method="ffill").dropna()
 5. **Pressure Mat** - The pressure mat returns a `16x32` array of integers indicating the observed pressure on each of the corresponding `512` sensors. We aggregate each array into a sum and compute a rolling mean and variance over the past three observations. This serves as an "indiactor" feature for if someone is standing on the mat and additionally provides the option to descriminate the identity of the test subject from their approximate weight.
 6. **Open Close Sensors** - The contact sensors indicate if a door is open or closed. We process these features into a set of three binary features indicating if the corresponding door has been opened in the previous 1, 5 or 10 minutes. A value is sent only when there is a change in state detected (i.e. the door is opened or closed)
 7. **Bluetooth Locator Beacons** - There are four bluetooth locator beacons named `rssi<1-4>`. Beacons 1 and 2 are located in the kitchen, beacon 3 is located in the dining room, and beacons 4 and 5 are located in the living room. Each beacon returns a value between -100 and -1 with larger values indicating closer proximity. A value of `0` indicates no data. We process these into a three boolean feature indicating if the test subject was in the kitchen, living room or dining room. To compute these values we replace 0's with -9999 and then compute an argmax over the vector of returned values.
+
+## Obtaining Labels
+
+The scripts above will automatically generate labeled Pandas dataframes. To label data during data collection we used an app which sent an MQTT message indicating the time at which an activity was changed. To manually label datasets (although we stress this is not necessary) labels can be extracted from the MQTT file using `RawDataDigester.get_labels()`. The labels can then be aligned to another time-series based on the timestamp.
+
+## Notes
+
+There was a sensor maulfunction during data collection for test subjects 4 and 5 and the contact sensor on the refrigerator did not send any data. Additionally, during data collection for subject 5, there is a gap during which no data was collected due to a network glitch in the test home. Our recommendation is to use these two datasets as test cases to evaluate prediction under unreliable data from sensors.
 
 ## Model training
 
