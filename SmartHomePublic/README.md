@@ -26,14 +26,14 @@ To generate a dataset for analysis perform the following steps:
 ```
 # (1) Clone this repository
 git clone https://github.com/UCSD-SEELab/SmartHomeProjectDeliverable.git
-cd SmartHomeProjectDeliverable SmartHomePublic
+cd SmartHomeProjectDeliverable/SmartHomePublic
 
 # (2) Install necessary python packages
 pip install -r requirements.txt
 
 # (3) Run code to parse raw data and extract features
 # WARNING: THIS WILL DELETE ALL EXISTING FILES IN /temp AND /output
-cd SmartHomePublic/code/cleaning
+cd code/cleaning
 python run.py
 ```
 
