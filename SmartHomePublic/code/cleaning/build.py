@@ -62,37 +62,32 @@ def main():
         "../../temp/subject2_data.h5", 30, "subject2", 
         use_wavelets, exclude_sensors=exclude_sensors, 
         exclude_transitions=False)
-
-    print "===============> BEFORE NORMALIZING <================="
-
-    print "++++++++++++++++ subject1 ++++++++++++++++"
-    print subject1_data.mean()
-    print subject1_data.var()
-
-    print "++++++++++++++++ subject2 +++++++++++++++++"
-    print subject2_data.mean()
-    print subject2_data.var()
-    
-    mu, sigma = normalize_continuous_cols(subject1_data)
-    normalize_continuous_cols(subject2_data, mu, sigma)
-  
-    print "===============> AFTER NORMALIZING <================="
-
-    print "++++++++++++++++ subject1 ++++++++++++++++"
-    print subject1_data.mean()
-    print subject1_data.var()
-
-    print "++++++++++++++++ subject2 +++++++++++++++++"
-    print subject2_data.mean()
-    print subject2_data.var()
-
-    subject1_data.describe().to_csv("../../temp/subject1_stats.csv")
-    subject2_data.describe().to_csv("../../temp/subject2_stats.csv")
+    subject4_data, _ = build_data(
+        "../../temp/subject4_data.h5", 30, "subject4",
+        use_wavelets, exclude_sensors=exclude_sensors)
+    subject5_data, _ = build_data(
+        "../../temp/subject5_data.h5", 30, "subject5",
+        use_wavelets, exclude_sensors=exclude_sensors)
 
     subject1_data.to_hdf("../../temp/data_processed.h5", "subject1")
     subject2_data.to_hdf("../../temp/data_processed.h5", "subject2")
+    subject4_data.to_hdf("../../temp/data_processed.h5", "subject4")
+    subject5_data.to_hdf("../../temp/data_processed.h5", "subject5")
+    
+    mu, sigma = normalize_continuous_cols(subject1_data)
+    normalize_continuous_cols(subject2_data, mu, sigma)
+    normalize_continuous_cols(subject4_data, mu, sigma)
+    normalize_continuous_cols(subject5_data, mu, sigma)
 
-    return subject1_data, subject2_data, sensors
+    subject1_data.describe().to_csv("../../temp/subject1_stats.csv")
+    subject2_data.describe().to_csv("../../temp/subject2_stats.csv")
+    subject4_data.describe().to_csv("../../temp/subject4_stats.csv")
+    subject5_data.describe().to_csv("../../temp/subject5_stats.csv")
+
+    subject1_data.to_hdf("../../temp/data_processed_centered.h5", "subject1")
+    subject2_data.to_hdf("../../temp/data_processed_centered.h5", "subject2")
+    subject4_data.to_hdf("../../temp/data_processed_centered.h5", "subject4")
+    subject5_data.to_hdf("../../temp/data_processed_centered.h5", "subject5")
 
 def build_data(path,
                window_size, 
@@ -125,7 +120,6 @@ def build_data(path,
     teapot_plug = pd.read_hdf(path, "teapot_plug")
     pressuremat = pd.read_hdf(path, "pressuremat")
     metasense = pd.read_hdf(path, "metasense")
-    airbeam = pd.read_hdf(path, "airbeam")
     location = pd.read_hdf(path, "location")
         
     '''
@@ -149,7 +143,7 @@ def build_data(path,
     watch_coarse = process_watch(watch, window_size, use_wavelets)
     labels_coarse = process_labels(watch, labels, window_size, exclude_transitions)
     location_coarse = process_location_data(watch, location, window_size)
-    #metasense = preprocess_metasense(metasense)
+    # metasense = preprocess_metasense(metasense)
     metasense_coarse = coarsen_continuous_features(metasense, watch, 3)
     tv_plug_coarse = coarsen_continuous_features(
         tv_plug["current"].to_frame(), watch, 3)
@@ -157,9 +151,12 @@ def build_data(path,
         teapot_plug["current"].to_frame(), watch, 3)
     pressuremat_coarse = coarsen_continuous_features(
         pressuremat, watch, 3)
-    airbeam_coarse = coarsen_continuous_features(
-        airbeam, watch, 3)
 
+    # airbeam was not used for subjects 4 or 5
+    if subject == "subject1" or subject == "subject2":
+        airbeam = pd.read_hdf(path, "airbeam")
+        airbeam_coarse = coarsen_continuous_features(
+            airbeam, watch, 3)
 
     cabinet1_coarse = process_binary_features(
         cabinet1_contact, watch, "cabinet1", window_size)
@@ -175,7 +172,7 @@ def build_data(path,
     fridge_coarse = process_binary_features(
         fridge_contact, watch, "fridge", window_size)
 
-    all_sensors = collections.OrderedDict([
+    sensor_list = [
                     # kitchen
                    ("teapot_plug", teapot_plug_coarse), 
                    ("pressuremat", pressuremat_coarse), 
@@ -193,11 +190,10 @@ def build_data(path,
 
                    # smart watch
                    ("location", location_coarse), 
-                   ("watch", watch_coarse),
-
-                   # not used
-                   ("airbeam", airbeam_coarse),
-                   ])
+                   ("watch", watch_coarse)]
+    if subject == "subject1" or subject == "subject2":
+        sensor_list.append(("airbeam", airbeam_coarse)) 
+    all_sensors = collections.OrderedDict(sensor_list)
 
     exclude_sensors = [] if exclude_sensors is None else exclude_sensors
     all_data = labels_coarse
@@ -219,8 +215,9 @@ def build_data(path,
             save_path = "../../output/{}_{}_distributions.csv"
             dists.to_csv(save_path.format(sensor, write_dists))
 
-    with open("../../temp/sensors.txt", "w") as fh:
-        fh.write(str(all_sensors.keys()))
+    if subject == "subject1":
+        with open("../../temp/sensors.txt", "w") as fh:
+            fh.write(str(all_sensors.keys()))
 
     return all_data, all_sensors.keys()
 
